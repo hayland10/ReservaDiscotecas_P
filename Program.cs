@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReservaDiscotecas_P.Areas.Identity.Data;
+using Microsoft.Extensions.DependencyInjection;
+using ReservaDiscotecas_P.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ReservaDiscotecas_PContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ReservaDiscotecas_PContext") ?? throw new InvalidOperationException("Connection string 'ReservaDiscotecas_PContext' not found.")));
 var connectionString = builder.Configuration.GetConnectionString("DBContextSampleConnection") ?? throw new InvalidOperationException("Connection string 'DBContextSampleConnection' not found.");
 
 builder.Services.AddDbContext<DBContextSample>(options =>
